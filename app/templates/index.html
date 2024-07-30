@@ -36,7 +36,7 @@
 </head>
 
 <body
-    class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed bg-gradient-to-r from-blue-200 to-cyan-200">
+    class="leading-normal tracking-normal text-indigo-400 m-3 bg-cover bg-fixed bg-gradient-to-r from-blue-200 to-cyan-200">
     <div class="h-full">
         <!--Nav-->
         <div class="w-full container mx-auto">
@@ -77,7 +77,7 @@
 
 
         <!--Main-->
-        <div class="container pt-20 md:pt-25 mx-auto flex flex-wrap flex-col md:text-center items-center ">
+        <div class="container pt-15 md:pt-25 mx-auto flex flex-wrap flex-col md:text-center items-center ">
 
             <div class="flex flex-col w-full xl:w-3/5 justify-center lg:items-center overflow-y-hidden">
                 <h1
@@ -94,7 +94,13 @@
 
 
                 <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
-
+                    <div>
+                        <label for="first_name"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PASS-KEY</label>
+                        <input type="text" id="PASS-KEY"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Ingrese el pass-key" required />
+                    </div>
                     <div>
                         <label for="first_name"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">API-KEY</label>
@@ -168,6 +174,7 @@
             const api_key = document.getElementById('api-key').value;
             const url = document.getElementById('url-api').value;
             const method = document.getElementById('METHOD').value;
+            const pass_key = document.getElementById('pass-key').value;
 
             const fileInput = document.getElementById('dropzone-file');
             const file = fileInput.files[0];
@@ -180,6 +187,7 @@
             const formData = new FormData();
             formData.append('file', file);
             formData.append('method', method);
+            formData.append('pass_key', pass_key);
 
             try {
                 const response = await fetch(url, {
