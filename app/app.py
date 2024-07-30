@@ -2,7 +2,7 @@ from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI()
@@ -11,7 +11,6 @@ current_dir = Path(__file__).parent
 
 @app.get("/")
 async def root(request: Request):
-    print(request.headers)
     template_path = current_dir / "templates" / "index.html"
     with open(template_path, "r") as file:
         template_content = file.read()
@@ -27,8 +26,25 @@ async def root(request: Request):
 
 @app.post("/a")
 async def a(request: Request):
+    # Get form data including file and method key
+    form = await request.form()
 
-    return {"message": "the method was POST"}
+    # Extract the file from the form data
+    file = form.get("file")  # file should match the field name in the form
+    method = form.get("method")  # method should match the field name in the form
+
+    # Print headers, file, and method
+    headers = dict(request.headers)
+    print("Headers:", headers)
+
+    # Extracting file content if it's available
+    if file:
+        file_content = await file.read()
+        print("File content:", file_content.decode())  # Decoding from bytes to string
+
+    print("Method:", method)
+
+    return JSONResponse(content={"message": "the method was POST", "method": method})
 
 
 @app.put("/b")
@@ -42,4 +58,4 @@ def get_app():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, port=8000)

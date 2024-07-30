@@ -179,10 +179,11 @@
 
             const formData = new FormData();
             formData.append('file', file);
+            formData.append('method', method);
 
             try {
                 const response = await fetch(url, {
-                    method: method,
+                    method: "POST",
                     body: formData,
                     headers: {
                         'X-API-KEY': api_key
