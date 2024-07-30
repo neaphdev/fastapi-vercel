@@ -24,7 +24,7 @@ async def root(request: Request):
     return HTMLResponse(content)
 
 
-@app.post("/a")
+@app.put("/")
 async def a(request: Request):
     # Get form data including file and method key
     form = await request.form()
