@@ -1,4 +1,5 @@
 from pathlib import Path
+import requests
 
 import uvicorn
 from fastapi import FastAPI, Request
