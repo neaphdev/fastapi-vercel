@@ -23,6 +23,17 @@ async def root(request: Request):
     template_path = current_dir / "templates" / "index.html"
     with open(template_path, "r") as file:
         template_content = file.read()
+    url = 'https://api.thecatapi.com/v1/images/0XYvRd7oD'
+    headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'YOUR_API_KEY'
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        print("DATA:: ",data)
+    else:
+        print(f'Error: {response.status_code}')
     template = Template(template_content)
     content = template.render(
         request=request,
